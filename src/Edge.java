@@ -1,5 +1,5 @@
 // models edge between two vertices
-public static class Edge {
+public class Edge {
 		private Vertex dest;
 		private double cost;
 
@@ -7,8 +7,20 @@ public static class Edge {
 			dest = d;
 			cost = c;
 		}
+		
+		public Vertex getDest() {
+			return dest;
+		}
+		
+		public double getCost() {
+			return cost;
+		}
 
 		public String toString() {
-			return "(" + dest.name + " " + cost + ")";
+			return "(" + dest.getName() + " " + cost + ")";
+		}
+
+		public void setCost(double cost) {
+			this.cost = cost;
 		}
 	}

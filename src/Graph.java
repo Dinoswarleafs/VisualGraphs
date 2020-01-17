@@ -135,8 +135,8 @@ public class Graph {
 
 		while (!q.isEmpty()) {
 			Vertex current = q.remove();
-			for (Edge e : current.adjacent) {
-				Vertex neighberNode = e.dest;
+			for (Edge e : current.getAdjacent()) {
+				Vertex neighberNode = e.getDest();
 				// Is this the first time I have seen this vertex?
 				if (neighberNode.weightedCostFromStartVertex == INFINITY) {
 					// In an unweighted graph we treat
@@ -215,18 +215,18 @@ public class Graph {
 				// Mark as visited
 				curr.scratch = VERTEX_VISITED;
 				// For every adjacent vertex
-				for (Edge e : curr.adjacent) {
+				for (Edge e : curr.getAdjacent()) {
 					// If the cost from the current vertex to the adjacent vertex is less
 					// than the current total cost for the vertex update the cost
-					double newCost = e.cost + curr.weightedCostFromStartVertex;
-					Vertex next = e.dest;
+					double newCost = e.getCost() + curr.weightedCostFromStartVertex;
+					Vertex next = e.getDest();
 					if (newCost < next.weightedCostFromStartVertex) {
 						next.weightedCostFromStartVertex = newCost;
 						next.prev = curr;
 						next.numEdgesFromStartVertex = curr.numEdgesFromStartVertex + 1;
 					}
 					// Add this vertex to the queue
-					dQueue.add(new Path(e.dest, newCost));
+					dQueue.add(new Path(e.getDest(), newCost));
 				}
 			}
 		}
@@ -408,7 +408,7 @@ public class Graph {
 		TreeSet<AllPathsInfo> result = new TreeSet<>();
 		for (Vertex v : vertices.values()) {
 			if (v.numVertexConnected > 0) {
-				AllPathsInfo temp = new AllPathsInfo(v.name, v.numVertexConnected, v.totalWeightedPathLength);
+				AllPathsInfo temp = new AllPathsInfo(v.getName(), v.numVertexConnected, v.totalWeightedPathLength);
 				boolean added = result.add(temp);
 				assert added : "Did not add path info for " + v + ". Why not?";
 			}
@@ -481,7 +481,7 @@ public class Graph {
 		if (end.prev != null) {
 			findPath(result, end.prev);
 		}
-		result.add(end.name);
+		result.add(end.getName());
 	}
 
 	/**
@@ -510,7 +510,7 @@ public class Graph {
 		if (dest.prev != null) {
 			printPath(dest.prev);
 		}
-		System.out.println(dest.name);
+		System.out.println(dest.getName());
 	}
 
 	/**
@@ -592,8 +592,8 @@ public class Graph {
 		List<String> result = new ArrayList<>();
 		Vertex v = vertices.get(name);
 		if (v != null) {
-			for (Edge e : v.adjacent) {
-				result.add(e.dest.name);
+			for (Edge e : v.getAdjacent()) {
+				result.add(e.getDest().getName());
 			}
 		}
 		return result;

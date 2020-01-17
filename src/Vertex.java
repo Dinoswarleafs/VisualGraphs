@@ -7,24 +7,25 @@ public class Vertex {
 
 	private String name;
 	private List<Edge> adjacent;
+	private final double INFINITY = Double.MAX_VALUE;
 
 	// Number of other vertices this vertex is connected to.
 	// This variable should be updated in the findAllPaths method.
-	private int numVertexConnected;
+	public int numVertexConnected;
 
 	// Sum of all unweighted shortest paths from this vertex to other vertices.
 	// This variable should be updated in the findAllPaths method.
-	private double totalUnweightedPathLength;
+	public double totalUnweightedPathLength;
 
 	// Sum of all weighted shortest paths from this vertex to other vertices.
 	// This variable should be updated in the findAllPaths method.
-	private double totalWeightedPathLength;
+	public double totalWeightedPathLength;
 
 	// for graph algorithms
-	private double weightedCostFromStartVertex;
-	private int numEdgesFromStartVertex;
-	private Vertex prev;
-	private int scratch;
+	public double weightedCostFromStartVertex;
+	public int numEdgesFromStartVertex;
+	public Vertex prev;
+	public int scratch;
 
 	public Vertex(String n) {
 		name = n;
@@ -61,11 +62,19 @@ public class Vertex {
 		if (e == null) {
 			adjacent.add(new Edge(dest, cost));
 		} else {
-			e.cost = cost;
+			e.setCost(cost);
 		}
 		return e != null;
 	}
-
+	
+	public String getName() {
+		return name;
+	}
+	
+	public List<Edge> getAdjacent() {
+		return adjacent;
+	}
+	
 	public boolean equals(Object other) {
 		boolean result = other instanceof Vertex;
 		if (result) {
@@ -83,7 +92,7 @@ public class Vertex {
 	// exist return null.
 	public Edge getEdgeWithName(String dest) {
 		for (Edge e : adjacent) {
-			if (e.dest.name.equals(dest)) {
+			if (e.getDest().name.equals(dest)) {
 				return e;
 			}
 		}

@@ -1,8 +1,6 @@
 import java.util.LinkedList;
 import java.util.List;
 
-import Graph.Path;
-import Graph.Vertex;
 
 // Models a path between vertices.
 	// Best not to try and store all paths for any but small graphs.
@@ -15,9 +13,9 @@ import Graph.Vertex;
 
 public class Path implements Comparable<Path> {
 
-		private List<Vertex> verticesInPath; // not necessary for temporary paths in Dijkstra's
-		private double weightedCostOfPath;
-		private Vertex dest;
+		public List<Vertex> verticesInPath; // not necessary for temporary paths in Dijkstra's
+		public double weightedCostOfPath;
+		public Vertex dest;
 
 		public Path() {
 			verticesInPath = new LinkedList<>();
@@ -52,7 +50,7 @@ public class Path implements Comparable<Path> {
 			StringBuilder result = new StringBuilder();
 			result.append("[");
 			for (Vertex v : verticesInPath) {
-				result.append(v.name);
+				result.append(v.getName());
 				result.append(", ");
 			}
 			if (verticesInPath.size() > 0) {
